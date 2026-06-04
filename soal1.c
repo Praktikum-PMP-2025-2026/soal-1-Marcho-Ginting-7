@@ -77,14 +77,14 @@
                 if (temp->data == commands[i+1]) {
                     if (before == NULL) {
                         head = after;
-                        free(temp);
                         break;
                     } else {
                         before->next = after;
-                        free(temp);
                         break;
                     }
                 }
+                if (temp->next == NULL)
+                    break;
                 before = temp;
                 temp = after;
                 after = temp->next;
