@@ -46,11 +46,11 @@
         // Grabs command prefix
         struct List *temp = head;
         if (commands[i] == 1) {
-            if (head->next == NULL)
+            if (head->data == 0)
                 head->data = commands[i+1];
             else {
                 struct List *new_head = (struct List *)malloc(sizeof(struct List));
-                new_head->next = head;
+                new_head->next = temp;
                 new_head->data = commands[i+1];
                 head = new_head;
             }
@@ -94,6 +94,7 @@
             while (temp != NULL) {
                 if (temp->data == commands[i+1]) {
                     printf("FOUND %d\n", index);
+                    break;
                 }
                 else if (temp->data != commands[i+1] && temp->next == NULL)
                     printf("NOT FOUND\n");
