@@ -90,6 +90,8 @@
                 after = temp->next;
             }
         } else if (commands[i] == 4) {
+            if (temp == NULL)
+                printf("NOT FOUND\n");
             int index = 0;
             while (temp != NULL) {
                 if (temp->data == commands[i+1]) {
@@ -101,8 +103,6 @@
                 temp = temp->next;
                 index++;
             }
-            if (temp == NULL)
-                printf("NOT FOUND\n");
         }
     }
     struct List *read = head;
