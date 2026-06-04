@@ -103,7 +103,7 @@
         }
     }
     struct List *read = head;
-    if (read == NULL)
+    if (read == NULL || read->data == 0)
         printf("LIST EMPTY\n");
     printf("LIST");
     while(read != NULL) {
