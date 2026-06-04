@@ -1,5 +1,5 @@
 /** EL2008 Praktikum Pemecahan Masalah dengan Pemrograman 2024/2025
- *   Modul               : 2 - Data Manipulation and External Files
+ *   Modul               : 4 - Dynamic Structures
  *   Hari dan Tanggal    : Senin, 20 April 2026
  *   Nama (NIM)          : Yozia Gedalya Marcho Ginting (13224001)
  *   Nama File           : soal1.c
@@ -29,7 +29,7 @@
         printf("Memory Allocation Failed/n");
         return 1;
     }
-    head->data = NULL;
+    head->data = 0;
     head->next = NULL;
 
     // Reads number of commands
@@ -44,23 +44,72 @@
 
     for (int i = 0; i < num*2; i += 2) {
         // Grabs command prefix
-        if (commands == 1) {
-            while (1) {
-                if (head->next == NULL)
-                    head->data = commands[i+1];
-                else {
-                    head->next
-                }
-            }
-        } else if (commands == 2) {
+        struct List *temp = head;
+        if (commands[i] == 1) {
             if (head->next == NULL)
                 head->data = commands[i+1];
-        } else if (commands == 3) {
-            
-        } else if (commands == 4) {
-            
+            else {
+                struct List *new_head = (struct List *)malloc(sizeof(struct List));
+                new_head->next = head;
+                new_head->data = commands[i+1];
+                head = new_head;
+            }
+        } else if (commands[i] == 2) {
+            if (head->data == 0)
+                head->data = commands[i+1];
+
+            else {
+                struct List *before = NULL;
+                // Traverse to the end of the linked list
+                while (temp != NULL) {
+                    before = temp;
+                    temp = temp->next;
+                }
+                struct List *new_node = (struct List *)malloc(sizeof(struct List));
+                new_node->data = commands[i+1];
+                new_node->next = NULL;
+                before->next = new_node;
+            }
+        } else if (commands[i] == 3) {
+            struct List *before = NULL;
+            struct List *after = temp->next;
+            while (temp != NULL) {
+                if (temp->data == commands[i+1]) {
+                    if (before == NULL) {
+                        head = after;
+                        free(temp);
+                        break;
+                    } else {
+                        before->next = after;
+                        free(temp);
+                        break;
+                    }
+                }
+                before = temp;
+                temp = after;
+                after = temp->next;
+            }
+        } else if (commands[i] == 4) {
+            int index = 0;
+            while (temp != NULL) {
+                if (temp->data == commands[i+1]) {
+                    printf("FOUND %d\n", index);
+                }
+                else if (temp->data != commands[i+1] && temp->next == NULL)
+                    printf("NOT FOUND\n");
+                temp = temp->next;
+                index++;
+            }
         }
     }
-
+    struct List *read = head;
+    if (read == NULL)
+        printf("LIST EMPTY\n");
+    printf("LIST");
+    while(read != NULL) {
+        printf(" %d", read->data);
+        read = read->next;
+    }
+    printf("\n");
     return 0;
  }
