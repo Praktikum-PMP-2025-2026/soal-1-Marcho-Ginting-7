@@ -101,6 +101,8 @@
                 temp = temp->next;
                 index++;
             }
+            if (temp == NULL)
+                printf("NOT FOUND\n");
         }
     }
     struct List *read = head;
